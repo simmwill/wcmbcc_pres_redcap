@@ -8,10 +8,15 @@ output:
       countIncrementalSlides: false
 ---
 
+```{r, echo=FALSE, eval=FALSE, include=FALSE}
+# palette: #BC2B35, #FDF0D5, #C6D8D3 (Cardinal, Papaya Whip, Opal)
+```
+
+
 class: center, middle, hide-count, title
 
-## SQL and R and REDCap, oh my!
-#### Effective PI-facing data workflows 
+### Reproducibile *and* modifiable?
+#### PI-facing data storage using REDCap and R
 
 &nbsp;
 
