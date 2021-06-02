@@ -1,0 +1,24 @@
+---
+output:
+  xaringan::moon_reader:
+    css: styles.css
+    seal: false
+    lib_dir: libs
+    nature:
+      countIncrementalSlides: false
+---
+
+class: center, middle, hide-count, title
+
+## SQL and R and REDCap, oh my!
+#### Effective PI-facing data workflows 
+
+&nbsp;
+
+<small>Will Simmons</small> <br>
+<small>WCM Biostatistics Computing Club</small> <br>
+<small>June 29, 2021</small>
+
+---
+
+
