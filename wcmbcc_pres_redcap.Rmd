@@ -14,15 +14,32 @@ output:
 
 
 class: center, middle, hide-count, title
+background-image: url(images/files.jpeg)
+background-size: cover
 
-### Reproducibile *and* modifiable?
-#### PI-facing data storage using REDCap and R
+<br>
+<br>
 
-&nbsp;
+.content-box-title[
+  ## Reproducible .cardinal[and] modifiable?
+  #### PI-facing data repositories with REDCap and R
+]
 
-<small>Will Simmons</small> <br>
-<small>WCM Biostatistics Computing Club</small> <br>
-<small>June 29, 2021</small>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+.pull-right[
+  .content-box-subtitle[
+    <small>Will Simmons</small> <br>
+    <small>WCM Biostatistics Computing Club</small> <br>
+    <small>June 29, 2021</small>
+  ]
+]
 
 ---
 
