@@ -12,7 +12,6 @@
 
 
 
-
 class: center, middle, hide-count, title
 background-image: url(images/files.jpeg)
 background-size: cover
@@ -41,9 +40,172 @@ background-size: cover
   ]
 ]
 
+???
+
+In this presentation, I'll talk a little about the concepts of reproducbility and modifiability, how those two
+concepts are often in conflict when working with data, and how they *might* be reconciled in some very specific
+but useful cases.
+
 ---
 
+class: center, middle
 
+# REPRODUCIBLE
+
+DATA&amp;nbsp; ➡️ &amp;nbsp; SCRIPT&amp;nbsp; ➡️ &amp;nbsp; NEW DATA
+
+???
+
+So -- as people who work with data, we tend to think of reproducibility as a way to ensure our inputs yield
+the same outputs via a series of codified actions, no matter who is performing the actions and in what context.
+Any changes to the inputs are not permanent but rather preserved in a separate output.
+
+---
+
+class: center, middle
+
+# MODIFIABLE
+
+DATA&amp;nbsp; ➡️ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ???&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ➡️ &amp;nbsp; NEW DATA
+
+???
+
+Since this is the case, the concept of modifiability might seem to run counter to reproducibility. How can an
+output or process be reproducible if we can irreversibly modify it?
+
+We've all come across common ways to modify data:
+
+---
+
+class: center, middle
+
+# MODIFIABLE
+
+DATA&amp;nbsp; ➡️ &amp;nbsp; .cardinal[EXCEL]&amp;nbsp; ➡️ &amp;nbsp; NEW DATA
+
+???
+
+With perhaps the most infamous being directly editing data in an Excel spreadhseet.
+
+--
+
+😱
+
+---
+
+class: center, middle
+
+# MODIFIABLE
+
+DATA&amp;nbsp; ➡️ &amp;nbsp; .cardinal[RE-DOWNLOAD]&amp;nbsp; ➡️ &amp;nbsp; NEW DATA
+
+???
+
+However, redownloading a dataset from a regularly-updated backend source without preserving separate versions
+is just as common.
+
+--
+
+😬
+
+---
+
+background-image: url(images/tug.jpeg)
+background-size: cover
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.pull-left[
+  .text-shadow[*REPRODUCIBILITY*]
+]
+
+&lt;br&gt;&lt;br&gt;
+.rightalign[
+  .text-shadow[*MODIFIABILITY*]
+]
+
+&lt;br&gt;
+.centeralign[
+  .text-shadow[*YOUR DATA*]
+]
+
+???
+
+And so, it seems we're left at a standoff, with reproducibility and modifiability vying for your data.
+
+---
+
+background-image: url(images/friends.jpeg)
+background-size: cover
+
+## .text-shadow[What if ... ?]
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.pull-left[
+  .text-shadow[*REPRODUCIBILITY*]
+]
+
+&lt;br&gt;
+.centeralign[
+  .text-shadow[*MODIFIABILITY*]
+]
+
+???
+
+However, are there instances where modifiability can be incorporated into reproducibility? Are 
+there scenarios where modifiability is actually useful to scientific pursuits?
+
+My goal today is to convince you of my **very** tentative yes to both of these questions. 
+(Make a slide with these two concepts: incorporate, useful?)
+
+---
+
+???
+
+Outline:
+  - Scenarios where modifiability can be **carefully** explored
+  - Scenarios where modifiability is NOT okay (from irresponsible to malicious/misleading)
+  - One solution: REDCapR API
+    - Allows backend R pipeline feeding frontend REDCap (manually-abstractable)
+    - (Also reproducible SQL pipeline from SQL to R (more on that in another presentation, maybe!))
+    - Pros:
+      - If data simply cannot be programmatically created (complex, unwieldy, etc.) - individuals may choose to manually abstract
+      - Easy-to-use, already-available platform that many PIs are familiar with (vs. SQL)
+    - Cons:
+      - For safety, need to ensure robust systems for data backup (not default/built in, but not terribly difficult)
+---
+
+class: center
+
+.pull-left[
+  ## Reproducible:
+  
+  .leftalign[
+  
+- Bullet 1 about reproducibility
+
+- Another thing about reproducibility 🤠
+
+- Ok, **one** last thing!
+    
+  ]
+  
+]
+
+--
+
+.pull-right[
+  ## Modifiable:
+  
+  .leftalign[
+  
+- First things first about modifying data
+
+- It's not good 😢
+
+- But sometimes it's necessary!
+
+  ]
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
