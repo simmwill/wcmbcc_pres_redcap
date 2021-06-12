@@ -148,9 +148,14 @@ background-size: cover
   .text-shadow[*YOUR DATA*]
 ]
 
+.footnote[.white[Source: unsplash.com/@merittthomas]]
+
 ???
 
 And so, it seems we're left at a standoff, with reproducibility and modifiability vying for your data.
+
+However, are there instances where modifiability can be incorporated into reproducibility? Are 
+there scenarios where modifiability is actually useful to scientific pursuits?
 
 ---
 
@@ -172,13 +177,13 @@ background-size: cover
 .text-shadow[*MODIFIABILITY*]
 ]
 
+.footnote[Source: instagram.com/wat.ki]
+
 ???
 
-However, are there instances where modifiability can be incorporated into reproducibility? Are 
-there scenarios where modifiability is actually useful to scientific pursuits?
-
-My goal today is to convince you of my **very** tentative yes to both of these questions. 
-(Make a slide with these two concepts: incorporate, useful?)
+My goal today is to convince you of my **very** tentative yes to both of these questions. In my
+limited experience, I've found a few scenarios in which your data can be gently cradled by both
+reproducibility and modifiability, carried towards your ultimate analytic goals.
 
 ---
 
@@ -194,7 +199,7 @@ background-color: var(--light-papaya-whip)
 
 --
 
-### *. . . if proper precautions are taken*
+### *. . . with proper precautions*
 
 ---
 
