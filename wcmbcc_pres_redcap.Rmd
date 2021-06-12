@@ -54,9 +54,11 @@ class: center, middle
 
 DATA&nbsp; `r emo::ji("arrow_right")` &nbsp; SCRIPT&nbsp; `r emo::ji("arrow_right")` &nbsp; NEW DATA
 
+&nbsp;
+
 ???
 
-So -- as people who work with data, we tend to think of reproducibility as a way to ensure our inputs yield
+So -- as people who work with data, we may think of reproducibility as a way to ensure our inputs yield
 the same outputs via a series of codified actions, no matter who is performing the actions and in what context.
 Any changes to the inputs are not permanent but rather preserved in a separate output.
 
@@ -67,6 +69,8 @@ class: center, middle
 # MODIFIABLE
 
 DATA&nbsp; `r emo::ji("arrow_right")` &nbsp;&nbsp;&nbsp;&nbsp; ???&nbsp;&nbsp;&nbsp;&nbsp; `r emo::ji("arrow_right")` &nbsp; NEW DATA
+
+&nbsp;
 
 ???
 
@@ -83,13 +87,21 @@ class: center, middle
 
 DATA&nbsp; `r emo::ji("arrow_right")` &nbsp; .cardinal[EXCEL]&nbsp; `r emo::ji("arrow_right")` &nbsp; NEW DATA
 
+&nbsp;
+
 ???
 
 With perhaps the most infamous being directly editing data in an Excel spreadhseet.
 
---
+---
 
-`r emo::ji("scream")`
+class: center, middle
+
+# MODIFIABLE
+
+DATA&nbsp; `r emo::ji("arrow_right")` &nbsp; .cardinal[EXCEL]&nbsp; `r emo::ji("arrow_right")` &nbsp; NEW DATA
+
+`r emo::ji("scream")` `r emo::ji("scream")` `r emo::ji("scream")`
 
 ---
 
@@ -99,14 +111,22 @@ class: center, middle
 
 DATA&nbsp; `r emo::ji("arrow_right")` &nbsp; .cardinal[RE-DOWNLOAD]&nbsp; `r emo::ji("arrow_right")` &nbsp; NEW DATA
 
+&nbsp;
+
 ???
 
 However, redownloading a dataset from a regularly-updated backend source without preserving separate versions
 is just as common.
 
---
+---
 
-`r emo::ji("grimace")`
+class: center, middle
+
+# MODIFIABLE
+
+DATA&nbsp; `r emo::ji("arrow_right")` &nbsp; .cardinal[RE-DOWNLOAD]&nbsp; `r emo::ji("arrow_right")` &nbsp; NEW DATA
+
+`r emo::ji("grimace")` `r emo::ji("grimace")` `r emo::ji("grimace")`
 
 ---
 
@@ -134,19 +154,22 @@ And so, it seems we're left at a standoff, with reproducibility and modifiabilit
 
 ---
 
-background-image: url(images/friends.jpeg)
+background-image: url(images/bffs_stick.jpeg)
 background-size: cover
 
 ## .text-shadow[What if ... ?]
 
 <br><br><br><br><br>
 .pull-left[
-  .text-shadow[*REPRODUCIBILITY*]
+.rightalign[
+.text-shadow[*REPRODUCIBILITY*]
+]
 ]
 
-<br>
-.centeralign[
-  .text-shadow[*MODIFIABILITY*]
+.pull-right[
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.text-shadow[*YOUR DATA*]
+<br><br><br><br>
+.text-shadow[*MODIFIABILITY*]
 ]
 
 ???
@@ -156,6 +179,22 @@ there scenarios where modifiability is actually useful to scientific pursuits?
 
 My goal today is to convince you of my **very** tentative yes to both of these questions. 
 (Make a slide with these two concepts: incorporate, useful?)
+
+---
+
+class: center
+background-color: var(--light-papaya-whip)
+
+<br><br><br>
+# MODIFIABILITY CAN BE USEFUL!
+
+--
+
+### *. . . in select circumstances*
+
+--
+
+### *. . . if proper precautions are taken*
 
 ---
 
