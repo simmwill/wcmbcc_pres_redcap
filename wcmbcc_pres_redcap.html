@@ -21,7 +21,7 @@ background-size: cover
 
 .content-box-title[
   ## Reproducible .cardinal[and] modifiable?
-  #### PI-facing data repositories with REDCap and R
+  #### PI-facing data repositories using REDCap API and R
 ]
 
 &lt;br&gt;
@@ -42,40 +42,47 @@ background-size: cover
 
 ???
 
+Hi everyone! Thanks for coming to our talks today - my name is Will, and I'm a Programmer Analyst in the 
+Division of Biostatistics.
+
 In this presentation, I'll talk a little about the concepts of reproducbility and modifiability, how those two
 concepts are often in conflict when working with data, and how they *might* be reconciled in some very specific
 but useful cases.
+
+I'll discuss a tiny bit then go into a detailed example using R and the REDCap API.
 
 ---
 
 class: center, middle
 
-# REPRODUCIBLE
+### DATA&amp;nbsp; ➡️ &amp;nbsp; .golden[**SCRIPT**]&amp;nbsp; ➡️ &amp;nbsp; NEW DATA
 
-DATA&amp;nbsp; ➡️ &amp;nbsp; SCRIPT&amp;nbsp; ➡️ &amp;nbsp; NEW DATA
+reproducible
 
 &amp;nbsp;
 
 ???
 
 So -- as people who work with data, we may think of reproducibility as a way to ensure our inputs yield
-the same outputs via a series of codified actions, no matter who is performing the actions and in what context.
-Any changes to the inputs are not permanent but rather preserved in a separate output.
+the same outputs via a series of defined actions, no matter the context or who's performing the actions.
+Changes to these inputs are usually not permanent but rather preserved in a separate output.
+
+In a simple case, this takes the form of input data being modified by a script, with the output saved as new data.
 
 ---
 
 class: center, middle
 
-# MODIFIABLE
+### DATA&amp;nbsp; ➡️&amp;nbsp;&amp;nbsp;&amp;nbsp; .cardinal[**???**]&amp;nbsp;&amp;nbsp;&amp;nbsp; ➡️ &amp;nbsp; DATA
 
-DATA&amp;nbsp; ➡️ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ???&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ➡️ &amp;nbsp; NEW DATA
+modifiable
 
 &amp;nbsp;
 
 ???
 
-Since this is the case, the concept of modifiability might seem to run counter to reproducibility. How can an
-output or process be reproducible if we can irreversibly modify it?
+In most cases, modifiability conflicts with reproducibility. How can an output or process be reproducible 
+if we can irreversibly modify it?
 
 We've all come across common ways to modify data:
 
@@ -83,50 +90,59 @@ We've all come across common ways to modify data:
 
 class: center, middle
 
-# MODIFIABLE
+### DATA&amp;nbsp; ➡️ &amp;nbsp; .cardinal[**EXCEL**]&amp;nbsp; ➡️ &amp;nbsp; DATA
 
-DATA&amp;nbsp; ➡️ &amp;nbsp; .cardinal[EXCEL]&amp;nbsp; ➡️ &amp;nbsp; NEW DATA
+modifiable
 
 &amp;nbsp;
 
 ???
 
-With perhaps the most infamous being directly editing data in an Excel spreadhseet.
+Maybe the most infamous is just directly editing an Excel spreadsheet.
 
 ---
 
 class: center, middle
 
-# MODIFIABLE
+### DATA&amp;nbsp; ➡️ &amp;nbsp; .cardinal[**EXCEL**]&amp;nbsp; ➡️ &amp;nbsp; DATA
 
-DATA&amp;nbsp; ➡️ &amp;nbsp; .cardinal[EXCEL]&amp;nbsp; ➡️ &amp;nbsp; NEW DATA
+modifiable
 
 😱 😱 😱
 
+???
+
+At best, this can be frustrating; and, if we're not careful, we can end up with unseen errors in our analyses.
+
 ---
 
 class: center, middle
 
-# MODIFIABLE
+### DATA&amp;nbsp; ➡️ &amp;nbsp; .cardinal[**RE-DOWNLOAD**]&amp;nbsp; ➡️ &amp;nbsp; DATA
 
-DATA&amp;nbsp; ➡️ &amp;nbsp; .cardinal[RE-DOWNLOAD]&amp;nbsp; ➡️ &amp;nbsp; NEW DATA
+modifiable
 
 &amp;nbsp;
 
 ???
 
-However, redownloading a dataset from a regularly-updated backend source without preserving separate versions
-is just as common.
+Another example that's just as common is redownloading a dataset from a regularly-updated backend source 
+without preserving separate versions. This changes my source data without any proof that a change 
+has occurred.
 
 ---
 
 class: center, middle
 
-# MODIFIABLE
+### DATA&amp;nbsp; ➡️ &amp;nbsp; .cardinal[**RE-DOWNLOAD**]&amp;nbsp; ➡️ &amp;nbsp; DATA
 
-DATA&amp;nbsp; ➡️ &amp;nbsp; .cardinal[RE-DOWNLOAD]&amp;nbsp; ➡️ &amp;nbsp; NEW DATA
+modifiable
 
 😬 😬 😬
+
+???
+
+Similarly, this can lead to code breaks, unexpected results, or even errors.
 
 ---
 
@@ -152,10 +168,12 @@ background-size: cover
 
 ???
 
-And so, it seems we're left at a standoff, with reproducibility and modifiability vying for your data.
+And so, it seems that we're at a standoff, right? With reproducibility and modifiability both 
+tugging at our data.
 
-However, are there instances where modifiability can be incorporated into reproducibility? Are 
-there scenarios where modifiability is actually useful to scientific pursuits?
+However, I've been asking recently if there are scenarios where modifiability can be incorporated 
+into reproducibility? Are there cases where modifiability is actually useful to research without
+potentially harming it?
 
 ---
 
@@ -181,15 +199,130 @@ background-size: cover
 
 ???
 
-My goal today is to convince you of my **very** tentative yes to both of these questions. In my
-limited experience, I've found a few scenarios in which your data can be gently cradled by both
-reproducibility and modifiability, carried towards your ultimate analytic goals.
+So, I'm basically asking -- what if?
+
+And while I don't think I've answered this question definitively for myself, my goal today is to 
+explore a **very** tentative yes to both of these questions: yes, modifiability can be incorporated
+into reproducible pipelines; and yes, it can even be useful and enhance them. 
 
 ---
 
-class: center
-background-color: var(--light-papaya-whip)
+class: center, middle
 
+&lt;img src="images/db.png" width="50%" /&gt;&lt;img src="images/chart.png" width="50%" /&gt;
+
+.footnote[Source: Shmidt Sergey, Egorova Valentina - Noun Project]
+
+???
+
+So -- here's a specific scenario I've been faced with several times. Data for a prospective study 
+are located in at least two distinct places: a backend database, and in patient charts.
+
+In other words, I needed both...
+
+---
+
+class: center, middle
+
+### .golden[**Programmatically**] pulled (and cleaned) data
+
+&amp;nbsp;
+
+### .magnolia[**Manually** abstracted data]
+
+???
+
+Programmatically pulled data, and...
+
+---
+
+class: center, middle
+
+### .golden[**Programmatically**] pulled (and cleaned) data
+
+&amp;nbsp;
+
+### .cardinal[**Manually**] abstracted data
+  
+???
+
+Manually-abstracted data.
+
+---
+
+???
+
+Potential approaches and issues/cautions with each:
+
+  - Pulling data from backend, then sending CSV to PI to manually abstract into
+    - No opportunities for data validation
+    - Potential for formatting errors, data deletion, etc.
+  - PI could manually-abstract data to be housed in SQL backend
+    - Good long-term, but time-consuming, and what if only needed for small subset of patients?
+  - 
+  - R/REDCap API (w/ SQL frontend, but that's another talk)
+
+---
+
+???
+
+DRAFT
+
+Brief outline of what I did with R-REDCap API:
+
+  - Pull SQL data
+  - Clean using R
+  - Push using API (REDCapR) + helpers
+  - Freeze; create backup/sandbox REDCaps
+  - Manual abstraction
+  - Create separate pipeline for further REDCap structural updates
+
+---
+
+???
+
+DRAFT
+
+About REDCap API, REDCapR, and other solutions
+
+  - Allows backend R pipeline feeding frontend REDCap (manually-abstractable)
+  - (Also reproducible SQL pipeline from SQL to R (more on that in another presentation, maybe!))
+  - Pros of REDCap:
+    - If data simply cannot be programmatically created (complex, unwieldy, etc.) - individuals may choose to manually abstract
+    - Easy-to-use, already-available platform that many PIs are familiar with (vs. SQL)
+  - Cons of REDCap, esp. with using API:
+    - For safety, need to ensure robust systems for data backup (not default/built in, but not terribly difficult)
+
+---
+
+???
+
+DRAFT - probably near end
+
+(My) best practices
+
+  - Test REDCap repositories (can set up via request to REDCap Admin)
+  - Automatic backups using cron
+  - Helper functions
+    - Metadata writing
+    - Safe backup and export  
+       - R: functions 
+       - REDCap: limiting access (mine or PI's) to read-only
+
+
+
+
+
+
+
+
+
+
+
+---
+class: center
+
+tl;dr
 &lt;br&gt;&lt;br&gt;&lt;br&gt;
 # MODIFIABILITY CAN BE USEFUL!
 
@@ -200,6 +333,11 @@ background-color: var(--light-papaya-whip)
 --
 
 ### *. . . with proper precautions*
+
+
+??? 
+
+Summary slide
 
 ---
 
@@ -216,6 +354,14 @@ Outline:
       - Easy-to-use, already-available platform that many PIs are familiar with (vs. SQL)
     - Cons:
       - For safety, need to ensure robust systems for data backup (not default/built in, but not terribly difficult)
+  - Things I've incorporated on top of REDCap API
+    - Test REDCap repositories (can set up via request to REDCap Admin)
+    - Automatic backups using cron
+    - Helper functions
+      - Metadata writing
+      - Safe backup and export  
+         - R: functions 
+         - REDCap: limiting access (mine or PI's) to read-only
 ---
 
 class: center
