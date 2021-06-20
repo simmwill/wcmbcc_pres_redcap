@@ -1,7 +1,7 @@
 ---
 output:
   xaringan::moon_reader:
-    css: styles.css
+    css: ["styles.css", "ninjutsu"]
     seal: false
     lib_dir: libs
     nature:
@@ -55,7 +55,7 @@ I'll discuss a tiny bit then go into a detailed example using R and the REDCap A
 
 class: center, middle
 
-### DATA&nbsp; `r emo::ji("arrow_right")` &nbsp; .golden[**SCRIPT**]&nbsp; `r emo::ji("arrow_right")` &nbsp; NEW DATA
+### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp; `r emo::ji("arrow_right")` &nbsp; .golden[**SCRIPT**]&nbsp; `r emo::ji("arrow_right")` &nbsp; NEW DATA
 
 reproducible
 
@@ -211,7 +211,7 @@ class: center, middle
 
 ```{r, echo = FALSE, out.width="50%"}
 knitr::include_graphics(c("images/db.png",
-                             "images/chart.png")
+                          "images/chart.png")
 )
 ```
 
@@ -254,19 +254,107 @@ Manually-abstracted data.
 
 ---
 
+# Potential solutions:
+
+<br>
+
+##  1. Change the .navy[**SQL**] data itself
+
+##  .magnolia[**Pull**, **clean**, and .forest**send CSV**]
+
+##  .magnolia[**Pull**, **clean**, and set up **REDCap**]
+
 ???
 
 Potential approaches and issues/cautions with each:
 
+  - PI could manually-abstract data to be housed in SQL backend
+    - By far the most time-consuming and potentially unviable on the list
+    - Good long-term, but many parties involved, and what if only needed for small subset of patients?
+    - Also can't just change the source data whenever more data are needed
+
+---
+
+# Potential solutions:
+
+<br>
+
+##  1. Change the .navy[**SQL**] data itself
+
+##  2. .forest[**Pull**], .forest[**clean**], and .forest[**send CSV**]
+
+##  .magnolia[**Pull**, **clean**, and set up **REDCap**]
+
+???
+
   - Pulling data from backend, then sending CSV to PI to manually abstract into
     - No opportunities for data validation
     - Potential for formatting errors, data deletion, etc.
-  - PI could manually-abstract data to be housed in SQL backend
-    - Good long-term, but time-consuming, and what if only needed for small subset of patients?
-  - 
-  - R/REDCap API (w/ SQL frontend, but that's another talk)
 
 ---
+
+# Potential solutions:
+
+<br>
+
+##  1. Change the .navy[**SQL**] data itself
+
+##  2. .forest[**Pull**], .forest[**clean**], and .forest[**send CSV**]
+
+##  3. .cardinal[**Pull**], .cardinal[**clean**], and set up .cardinal[**REDCap**]
+
+???
+
+  - R/REDCap API (w/ SQL frontend, but that's another talk)
+    - Spoiler alert: this ended up being by solution, at least for now
+    - I'm going to talk a little about why this seems like the best solution given the 
+    circumstances, it's pros and cons, and work to improve this approach
+
+---
+
+class: center, middle
+
+## Working with the REDCap API
+### *via* .cardinal[.code[**REDCapR**]]
+
+???
+
+So, once I figured out I wanted to keep all of my work in R -- mainly because that's where I'm
+most comfortable, but also to increase reproducibility -- I found REDCap's API.
+
+And while there are some incredible packages out there -- httr, curl, and others -- REDCapR was an 
+easy, out-of-the-box solution to linking R and REDCap via its API.
+
+---
+
+class: split-two
+
+# Workflow
+
+
+.pull-left[
+<ol style="line-height:110px;">
+<h0 style="font-size:2.25rem">
+<li> Pull</li> 
+
+<li> Clean</li> 
+
+<li> Push</li> 
+
+<li> Abstract</li> 
+</h0>
+</ol>
+]
+
+--
+
+.pull-right[
+<ul style="list-style-type:none; line-height:80px;">
+<li><img src="images/db.png" height=70px style="margin:10px 5px 5px 5px"></li>
+<li><img src="images/rlogo.svg" height=70px style="margin:5px 5px 5px 15px"></li>
+<li><img src="images/redcaprlogo.png" height=70px style="margin:5px 5px 5px 20px"></li>
+<li><img src="images/redcap.png" height=70px style="margin:5px 5px 5px 15px"></li>
+]
 
 ???
 
@@ -277,9 +365,19 @@ Brief outline of what I did with R-REDCap API:
   - Pull SQL data
   - Clean using R
   - Push using API (REDCapR) + helpers
-  - Freeze; create backup/sandbox REDCaps
   - Manual abstraction
-  - Create separate pipeline for further REDCap structural updates
+    - Freeze a copy; create backup/sandbox REDCaps
+    - Create workflows for further REDCap structural updates
+    
+... but what I'm really going to focus on today is ...
+
+---
+
+<img src="images/redcapr-window.png">
+
+???
+
+... using the REDCapR package to ease your interactions with the REDCap API via R
 
 ---
 
