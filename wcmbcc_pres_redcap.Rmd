@@ -6,6 +6,9 @@ output:
     lib_dir: libs
     nature:
       countIncrementalSlides: false
+      highlightStyle: github
+      highlightLines: true
+      highlightSpans: true
 ---
 
 ```{r, echo=FALSE, eval=FALSE, include=FALSE}
@@ -55,9 +58,9 @@ I'll discuss a tiny bit then go into a detailed example using R and the REDCap A
 
 class: center, middle
 
-### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp; `r emo::ji("arrow_right")` &nbsp; .golden[**SCRIPT**]&nbsp; `r emo::ji("arrow_right")` &nbsp; NEW DATA
+### &nbsp;DATA<sub>1</sub>&nbsp; `r emo::ji("arrow_right")` &nbsp; .golden[**SCRIPT**]&nbsp; `r emo::ji("arrow_right")` &nbsp; DATA<sub>2</sub>
 
-reproducible
+#### reproducible
 
 &nbsp;
 
@@ -75,7 +78,7 @@ class: center, middle
 
 ### DATA&nbsp; `r emo::ji("arrow_right")`&nbsp;&nbsp;&nbsp; .cardinal[**???**]&nbsp;&nbsp;&nbsp; `r emo::ji("arrow_right")` &nbsp; DATA
 
-modifiable
+#### modifiable
 
 &nbsp;
 
@@ -92,7 +95,7 @@ class: center, middle
 
 ### DATA&nbsp; `r emo::ji("arrow_right")` &nbsp; .cardinal[**EXCEL**]&nbsp; `r emo::ji("arrow_right")` &nbsp; DATA
 
-modifiable
+#### modifiable
 
 &nbsp;
 
@@ -106,7 +109,7 @@ class: center, middle
 
 ### DATA&nbsp; `r emo::ji("arrow_right")` &nbsp; .cardinal[**EXCEL**]&nbsp; `r emo::ji("arrow_right")` &nbsp; DATA
 
-modifiable
+#### modifiable
 
 `r emo::ji("scream")` `r emo::ji("scream")` `r emo::ji("scream")`
 
@@ -120,7 +123,7 @@ class: center, middle
 
 ### DATA&nbsp; `r emo::ji("arrow_right")` &nbsp; .cardinal[**RE-DOWNLOAD**]&nbsp; `r emo::ji("arrow_right")` &nbsp; DATA
 
-modifiable
+#### modifiable
 
 &nbsp;
 
@@ -136,7 +139,7 @@ class: center, middle
 
 ### DATA&nbsp; `r emo::ji("arrow_right")` &nbsp; .cardinal[**RE-DOWNLOAD**]&nbsp; `r emo::ji("arrow_right")` &nbsp; DATA
 
-modifiable
+#### modifiable
 
 `r emo::ji("grimace")` `r emo::ji("grimace")` `r emo::ji("grimace")`
 
@@ -228,7 +231,7 @@ In other words, I needed both...
 
 class: center, middle
 
-### .golden[**Programmatically**] pulled (and cleaned) data
+### .golden[**Programmatically**] pulled (& cleaned) data
 
 &nbsp;
 
@@ -242,7 +245,7 @@ Programmatically pulled data, and...
 
 class: center, middle
 
-### .golden[**Programmatically**] pulled (and cleaned) data
+### .golden[**Programmatically**] pulled (& cleaned) data
 
 &nbsp;
 
@@ -253,16 +256,37 @@ class: center, middle
 Manually-abstracted data.
 
 ---
+# Potential solutions:
+
+<br>
+<ol>
+
+## .magnolia[<li>Change the **SQL** data itself]</li>
+
+## .magnolia[<li>Pull, clean, and send **CSV**]</li>
+
+## .magnolia[<li>Pull, clean, and set up **REDCap**]</li>
+
+</ol>&nbsp;
+
+???
+
+In my head, I had at least three solutions:
+
+---
 
 # Potential solutions:
 
 <br>
+<ol>
 
-##  1. Change the .navy[**SQL**] data itself
+## <li>Change the .navy[**SQL**] data itself</li>
 
-##  .magnolia[**Pull**, **clean**, and .forest**send CSV**]
+## .magnolia[<li>Pull, clean, and send **CSV**]</li>
 
-##  .magnolia[**Pull**, **clean**, and set up **REDCap**]
+## .magnolia[<li>Pull, clean, and set up **REDCap**]</li>
+
+</ol>&nbsp;
 
 ???
 
@@ -278,12 +302,15 @@ Potential approaches and issues/cautions with each:
 # Potential solutions:
 
 <br>
+<ol>
 
-##  1. Change the .navy[**SQL**] data itself
+## <li>Change the .navy[**SQL**] data itself</li>
 
-##  2. .forest[**Pull**], .forest[**clean**], and .forest[**send CSV**]
+## <li>Pull, clean, and send .forest[**CSV**]</li>
 
-##  .magnolia[**Pull**, **clean**, and set up **REDCap**]
+## .magnolia[<li>Pull, clean, and set up **REDCap**]</li>
+
+</ol>&nbsp;
 
 ???
 
@@ -297,11 +324,15 @@ Potential approaches and issues/cautions with each:
 
 <br>
 
-##  1. Change the .navy[**SQL**] data itself
+<ol>
 
-##  2. .forest[**Pull**], .forest[**clean**], and .forest[**send CSV**]
+## <li>Change the .navy[**SQL**] data itself</li>
 
-##  3. .cardinal[**Pull**], .cardinal[**clean**], and set up .cardinal[**REDCap**]
+## <li>Pull, clean, and send .forest[**CSV**]</li>
+
+## <li>Pull, clean, and set up .cardinal[**REDCap**]</li>
+
+</ol>&nbsp;
 
 ???
 
@@ -333,27 +364,27 @@ class: split-two
 
 
 .pull-left[
-<ol style="line-height:110px;">
-<h0 style="font-size:2.25rem">
-<li> Pull</li> 
+<ol style="line-height:62px;">
+<!-- <h0 style="font-size:2.25rem"> -->
+## <li> Pull</li> 
 
-<li> Clean</li> 
+## <li> Clean</li> 
 
-<li> Push</li> 
+## <li> Push</li> 
 
-<li> Abstract</li> 
-</h0>
-</ol>
+## <li> Abstract</li> 
+<!-- </h0> -->
+</ol>.
 ]
 
 --
 
 .pull-right[
 <ul style="list-style-type:none; line-height:80px;">
-<li><img src="images/db.png" height=70px style="margin:10px 5px 5px 5px"></li>
-<li><img src="images/rlogo.svg" height=70px style="margin:5px 5px 5px 15px"></li>
-<li><img src="images/redcaprlogo.png" height=70px style="margin:5px 5px 5px 20px"></li>
-<li><img src="images/redcap.png" height=70px style="margin:5px 5px 5px 15px"></li>
+<li><img src="images/db.png" height=65px style="margin:10px 5px 5px 5px"></li>
+<li><img src="images/rlogo.svg" height=65px style="margin:-1px 5px 5px 15px"></li>
+<li><img src="images/redcaprlogo.png" height=65px style="margin:-1px 5px 5px 20px"></li>
+<li><img src="images/redcap.png" height=65px style="margin:-1px 5px 5px 15px"></li>
 ]
 
 ???
@@ -373,11 +404,150 @@ Brief outline of what I did with R-REDCap API:
 
 ---
 
+class: split-two
+
+# Workflow
+
+
+.pull-left[
+<ol style="line-height:62px;">
+<!-- <h0 style="font-size:2.25rem"> -->
+## .grey2[<li> Pull</li>]
+
+## .grey2[<li> Clean</li>]
+
+## <li> Push</li> 
+
+## .grey2[<li> Abstract</li>]
+<!-- </h0> -->
+</ol>.
+]
+
+.pull-right[
+<ul style="list-style-type:none; line-height:80px;">
+<li><img src="images/db.png" height=65px style="opacity:0.1; margin:10px 5px 5px 5px"></li>
+<li><img src="images/rlogo.svg" height=65px style="opacity:0.1; margin:-1px 5px 5px 15px"></li>
+<li><img src="images/redcaprlogo.png" height=65px style="margin:-1px 5px 5px 20px"></li>
+<li><img src="images/redcap.png" height=65px style="opacity:0.1; margin:-1px 5px 5px 15px"></li>
+]
+
+???
+
+... using the REDCapR package to ease your interactions with the REDCap API via R. This mostly entails this "push" step, but the "abstract" step will sneak in here a bit.
+
+---
+
 <img src="images/redcapr-window.png">
 
 ???
 
-... using the REDCapR package to ease your interactions with the REDCap API via R
+So -- this is REDCapR. You can download it on CRAN
+
+---
+
+# Setup
+
+## 1. Request .cardinal[REDCap API token] 
+
+[static image or GIF of the API request process on a REDCap repository]
+
+Store your token in secure spot accessible by .code[R] (e.g. using .code[keyring]).
+
+???
+
+Now, REDCapR requires a tiny bit of setup as an interface between R and REDCap
+
+After setting up a REDCap database, you'll need to request an API token, which usually doesn't take more than a day to be administered.
+
+Existing questions:
+
+  - Do all phyiscians/PIs have access to REDCap? How would they get it if not?
+  - 
+
+---
+
+# Setup
+
+## 2. Ensure .golden[read/write] privileges
+
+[static image or GIF of the User Rights portal on a REDCap repository]
+
+API privileges should include **API Export** and **API Import/Update**.
+
+---
+
+# The Basics
+
+### Pulling data from an existing .cardinal[REDCap]
+
+```{r, eval = F}
+
+# setup ------------------------------------------------------------
+
+library(REDCapR)
+
+uri <- "https://redcap.ctsc.weill.cornell.edu/redcap_protocols/api/"
+token <- "9A81268476645C4E5F03428B8AC3AA7B"  # not real
+
+```
+
+---
+
+# The Basics
+
+### Pulling data from an existing .cardinal[REDCap]
+
+```{r, eval = F}
+
+# setup ------------------------------------------------------------
+
+library(REDCapR)
+
+uri <- "https://redcap.ctsc.weill.cornell.edu/redcap_protocols/api/"
+token <- "9A81268476645C4E5F03428B8AC3AA7B"  # not real
+
+# pull -------------------------------------------------------------
+
+pull <- `redcap_read`(redcap_uri = uri,
+                    token = token)
+
+data <- pull$data
+
+```
+
+---
+
+# The Basics
+
+### Pushing data to .cardinal[REDCap]
+
+Step 1: Defining your data dictionary
+
+???
+
+[not sure how in-the-weeds I should get here]
+Concepts:
+   - dictionary format
+   - wdict()?
+   - development vs. production
+   - design via REDCap IDE
+   
+---
+
+# The Basics
+
+### Pushing data to .cardinal[REDCap]
+
+Step 2: Exporting a dataframe 
+
+```{r, eval = F}
+
+ `redcap_write`(ds_to_write = test_data,
+              redcap_uri = uri,
+              token = token)
+
+```
+
 
 ---
 
@@ -464,6 +634,12 @@ Outline:
       - Safe backup and export  
          - R: functions 
          - REDCap: limiting access (mine or PI's) to read-only
+         
+---
+
+Other topics
+  - REDCap's API Playground (screenshot of window) - gives R code to interact with API
+
 ---
 
 class: center
