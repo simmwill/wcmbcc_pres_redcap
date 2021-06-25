@@ -11,8 +11,13 @@ output:
       highlightSpans: true
 ---
 
-```{r, echo=FALSE, eval=FALSE, include=FALSE}
-# palette: #BC2B35, #FDF0D5, #C6D8D3 (Cardinal, Papaya Whip, Opal)
+```{r xaringan-extra-features, echo=FALSE}
+xaringanExtra::use_tile_view()
+xaringanExtra::use_search(show_icon = TRUE)
+xaringanExtra::use_clipboard()
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE
+)
 ```
 
 class: center, middle, hide-count, title
