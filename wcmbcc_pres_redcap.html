@@ -124,7 +124,7 @@ class: center, middle
 
 ???
 
-At best, this can be frustrating; and, if we're not careful, we can end up with unpredicted changes to or errors in our analyses.
+At best, this can be frustrating; and, if we're not careful, we can end up with unpredicted changes or errors in our analyses.
 
 ---
 
@@ -352,6 +352,56 @@ Potential approaches and issues/cautions with each:
 
 ---
 
+&lt;img src="images/redcap.png" height=80px style="margin:0 0 0 -10px"&gt;
+
+&lt;h3 style="margin: -10px 0 0px -2px"&gt;
+.cardinal[R]esearch .cardinal[E]lectronic .cardinal[D]ata .cardinal[Cap]ture
+&lt;/h3&gt;
+
+???
+
+First, I wanted to VERY briefly go over REDCap itself. Many of you are likely familiar with it, but I wanted to describe some of its features that are relevant to what I'll be talking about today.
+
+REDCap is a secure web application for building and managing online databases. It's a platform that allows researchers to enter data via an easy-to-use interface.
+
+--
+
+&lt;center&gt;&lt;img src="images/redcap-window.png" height=500px&gt;&lt;/center&gt;
+
+???
+
+Here's what a REDCap window looks like if you're using Cornell's REDCap portal. 
+
+The use-cases where REDCap shines aren't those involving solely data storage but rather where integrated data collection, storage, and collaboration are needed. It has a ton of features enabling data security, validation, and customization, so to me, it seems REDCap's primary benefit over something like shared CSV files is **controlled modifiability**. 
+
+Most of the terms I'll use today will probably be familiar to those who work with data, but REDCap has some special language that I'll dive into very briefly here. 
+
+The first is what REDCap calls a data dictionary. 
+
+--
+
+&lt;div style="position: absolute; top: 345px; left: 250px; width:55px;height:15px;border:4px solid #BC2B35;"&gt;&lt;/div&gt;
+
+???
+
+This term is probably familiar to most of you, but in REDCap's specific context, the dictionary serves both as a list of project variables (or "data fields") and their REDCap-specific attributes. Notably, you can't put data into a REDCap until you've specified its dictionary. 
+
+The second term is what REDCap refers to as instruments. A REDCap dictionary creates the organizational instruments in which data will be collected and stored. 
+
+--
+
+&lt;div style="position: absolute; top: 533px; left: 430px; width:140px;height:20px;border:4px solid #BC2B35;"&gt;&lt;/div&gt;
+
+???
+
+In other words, instruments are groups of variables housed in a form -- for example, in this window, you see Demographics, Diagnosis History, Vitals, and Lab Results, each of which contains a collection of variables with a common theme.
+
+It's not a perfect analogy, but I like to think of instruments as similar to SQL tables, in that they each contain a number of columns grouped with a common purpose.
+
+As we'll see here in a bit, there are at least two ways I can interact with REDCap: via this web portal, or via the REDCap API. I've seen a ton of benefit from incorporating the latter approach into my workflow.
+
+---
+
 class: center, middle
 
 ## Working with the REDCap API
@@ -359,7 +409,7 @@ class: center, middle
 
 ???
 
-One of the main reasons I chose this approach was that I could keep all of my work in R. I didn't need to do as much switching between the REDCap online interface, because everything -- from pulling the SQL data to cleaning and pushing data to REDCap -- were contained in R scripts.
+One of the main reasons I chose this approach was that I could keep all of my work in R. I didn't need to do as much switching between the REDCap online interface, because everything can be contained in R scripts -- from pulling the SQL data to cleaning and pushing data to REDCap.
 
 And while there are some incredible packages out there to deal with APIs in R -- httr, curl, and others -- REDCapR was an easy, out-of-the-box solution to linking R and REDCap via the API.
 
@@ -397,9 +447,10 @@ class: split-two
 
 ???
 
-So, as I mentioned, my workflow was basically this:
+In using R and the REDCap API, my workflow is generally this:
 
   - Pull data from a SQL backend (often integrating other sources, as well)
+    - This isn't terribly relevant here, but many of you are probably using these same backend sources, so it's more to give context to workflows that may already exist for you
     - I usually use packages like DBI, dbmi, and dbplyr here, but I could give an entire separate talk on those
 
 ---
@@ -468,7 +519,7 @@ class: split-two
 
 ???
 
-  - Push the data to REDCap using REDCapR
+  - Push the data to REDCap using REDCapR, the R package I mentioned earlier
 
 ---
 
@@ -549,7 +600,13 @@ So -- this is REDCapR. You can download it on CRAN
 
 ---
 
-# Setup
+# .cardinal[.code[REDCapR]] Setup
+
+???
+
+It requires a tiny bit of setup as an interface between R and REDCap.
+
+--
 
 &lt;br&gt; 
 
@@ -561,15 +618,13 @@ Store your token in secure spot accessible by .code[R] (e.g. using .code[keyring
 
 ???
 
-It requires a tiny bit of setup as an interface between R and REDCap.
-
 I won't go through this in too much detail, since the purpose of this presentation is more to make you aware of these features, but I'll mention the steps briefly.
 
-whether you're using a new or existing REDCap database, you'll need to request an API token, which usually doesn't take more than a day to be administered.
+Whether you're using a new or existing REDCap database, you'll need to request an API token, which usually doesn't take more than a day to be administered.
 
 ---
 
-# Setup
+# .cardinal[.code[REDCapR]] Setup
 
 &lt;br&gt; 
 ## 2. Ensure .golden[read/write] privileges
@@ -586,7 +641,9 @@ After you've been assigned a token, you'll also need to make sure you have the p
 
 # The Basics
 
-### Get data from an existing .cardinal[REDCap]
+&lt;h3 style="margin: -10px 0 30px -10px"&gt;
+Get data from an existing .cardinal[REDCap]
+&lt;/h3&gt;
 
 --
 
@@ -610,7 +667,9 @@ First, assign your uri (which should be the same across Cornell REDCap repos) an
 
 # The Basics
 
-### Get data from an existing .cardinal[REDCap]
+&lt;h3 style="margin: -10px 0 30px -10px"&gt;
+Get data from an existing .cardinal[REDCap]
+&lt;/h3&gt;
 
 
 ```r
@@ -637,7 +696,9 @@ Next, you'll use REDCapR's redcap_read() function to pull data. It returns a var
 
 # The Basics
 
-### Get **meta**data from an existing .cardinal[REDCap]
+&lt;h3 style="margin: -10px 0 30px -10px"&gt;
+Get .bold[meta]data from an existing .cardinal[REDCap]
+&lt;/h3&gt;
 
 --
 
@@ -645,21 +706,29 @@ Next, you'll use REDCapR's redcap_read() function to pull data. It returns a var
 ```r
 # pull -------------------------------------------------------------
 
-dict_pull &lt;- `redcap_metadata_read`(redcap_uri = uri,
-                                  token = token)
+metadata &lt;- `redcap_metadata_read`(redcap_uri = uri,
+                                 token = token)
 
-dictionary &lt;- dict_pull$data
+dictionary &lt;- metadata$data
 ```
 
 ???
 
-Metadata, which includes your data's dictionary, is also something useful you can pull from REDCap via the API. Just use the redcap_metadata_read function, from which you'll again subset the data element to get the dictionary. The dictionary is pulled as a dataframe that contains the field names, their types, and other useful info.
+Metadata, which includes your data dictionary, is also something useful you can pull from REDCap via the API. Just use the redcap_metadata_read function, from which you'll again subset the data element to get the dictionary. The dictionary is pulled as a dataframe that contains the field names, their types, and other useful info.
 
 ---
 
 # The Basics
 
-### Pushing things to .cardinal[REDCap]: your **metadata**
+&lt;h3 style="margin: -10px 0 30px -10px"&gt;
+Pushing things to .cardinal[REDCap]: your .bold[dictionary]
+&lt;/h3&gt;
+
+???
+
+Pushing data to REDCap via the API requires a little bit of learning, both about REDCap formats and using an API, neither of which I was familiar with. However, if this sounds like something that could be useful in your work, it could be worthwhile.
+
+First, you'll need to define your data dictionary. As I mentioned, REDCap won't accept data without a dictionary in place first, which serves as a receiving template for your incoming data. You can design the dictionary on the online REDCap interface or programmatically in your R pipeline. I won't cover how to do so here, but if you'll be making lots of iterative changes or defining hundreds of variables, it might be worth doing programmatically.
 
 --
 
@@ -667,24 +736,26 @@ Metadata, which includes your data's dictionary, is also something useful you ca
 ```r
 # dictionary -------------------------------------------------------
 
- `redcap_metadata_write`(ds = dict,
+ `redcap_metadata_write`(ds = my_dictionary,
                        redcap_uri = uri,
                        token = token)
 ```
 
 ???
 
-Pushing data to REDCap via the API requires a little bit of learning, both about REDCap formats and using an API, neither of which I was familiar with. However, if this sounds like something that could be useful in your work, it could be worthwhile.
-
-First, you'll need to define your data dictionary; I won't get too in the weeds here, but without a defined template for your data stored in REDCap, REDCap won't accept it. You can design the dictionary on the online REDCap interface or programmatically. If you'll be making lots of iterative changes or defining hundreds of variables, it might be worth doing programmatically.
-
-You can do it programmatically using the redcap_metadata_write function. Your dictionary needs to be a specifically-formatted dataframe, but I won't cover the format in detail in this presentation.
+You can push your created dictionary via the API using the redcap_metadata_write function. Your dictionary needs to be a specifically-formatted dataframe. The programmatic dictionary format is relatively simple but a bit too in-the-weeds for this presentation, so I'm happy to field any questions after the presentation or later on if you're interested.
 
 ---
 
 # The Basics
 
-### Pushing things to .cardinal[REDCap]: your **data**
+&lt;h3 style="margin: -10px 0 30px -10px"&gt;
+Pushing things to .cardinal[REDCap]: your .bold[data]
+&lt;/h3&gt;
+
+???
+
+Once you have a correctly-formatted dictionary established in REDCap, you can push data to REDCap using the ...
 
 --
 
@@ -699,7 +770,7 @@ You can do it programmatically using the redcap_metadata_write function. Your di
 
 ???
 
-Once you have a correctly-formatted dictionary in REDCap, you can push data to REDCap using the redcap_write function. I spend a lot of my time querying and cleaning data from SQL backends, and this function is incredibly useful to push data directly to REDCap repositories.
+redcap_write function. I spend a lot of my time querying and cleaning data from SQL backends, and this function is incredibly useful to push data directly to REDCap repositories.
 
 As with dictionaries, these dataframes need to be formatted specifically, especially if you're working in a REDCap project with longitudinal data. 
 
@@ -709,7 +780,7 @@ As with dictionaries, these dataframes need to be formatted specifically, especi
 More Advanced
 &lt;/h1&gt;
 
-&lt;h3 style="margin: -10px 0 30px 0"&gt;
+&lt;h3 style="margin: -10px 0 30px -10px"&gt;
 Updating existing data on .cardinal[REDCap]
 &lt;/h3&gt;
 
@@ -756,9 +827,11 @@ new_data &lt;- old_data %&gt;%
 
 ---
 
-# Even More Advanced...
+# More Advanced
 
-### More .golden[API] stuff in R (.code[httr], .code[curl])
+&lt;h3 style="margin: -10px 0 30px -10px"&gt;
+More .golden[API] stuff in R (.code[httr], .code[curl])
+&lt;/h3&gt;
 
 ???
 
