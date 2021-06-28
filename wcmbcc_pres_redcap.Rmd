@@ -364,6 +364,8 @@ First, I wanted to VERY briefly go over REDCap itself. Many of you are likely fa
 
 REDCap is a secure web application for building and managing online databases. It's a platform that allows researchers to enter data via an easy-to-use interface.
 
+***
+
 --
 
 <center><img src="images/redcap-window.png" height=500px></center>
@@ -372,11 +374,13 @@ REDCap is a secure web application for building and managing online databases. I
 
 Here's what a REDCap window looks like if you're using Cornell's REDCap portal. 
 
-The use-cases where REDCap shines aren't those involving solely data storage but rather where integrated data collection, storage, and collaboration are needed. It has a ton of features enabling data security, validation, and customization, so to me, it seems REDCap's primary benefit over something like shared CSV files is **controlled modifiability**. 
+To me, REDCap excels when integrated data collection, storage, and collaboration are needed. It has a ton of features enabling data security, validation, and customization, so to me, it seems like REDCap's primary benefit over something like shared CSV files is **controlled modifiability**. 
 
-Most of the terms I'll use today will probably be familiar to those who work with data, but REDCap has some special language that I'll dive into very briefly here. 
+REDCap has some special language that I'll dive into very briefly here -- most of the terms I'll use today will probably be familiar to you, but I'll mention them to be sure. 
 
-The first is what REDCap calls a data dictionary. 
+The first is REDCap's data dictionary....
+
+***
 
 --
 
@@ -384,9 +388,11 @@ The first is what REDCap calls a data dictionary.
 
 ???
 
-This term is probably familiar to most of you, but in REDCap's specific context, the dictionary serves both as a list of project variables (or "data fields") and their REDCap-specific attributes. Notably, you can't put data into a REDCap until you've specified its dictionary. 
+While this is a generally-used term, REDCap's dictionary contains a list of project variables as you'd expect as well as many REDCap-specific attributes. Importantly, you can't put data into a REDCap until you've specified its dictionary. 
 
-The second term is what REDCap refers to as instruments. A REDCap dictionary creates the organizational instruments in which data will be collected and stored. 
+The second are REDCap's instruments. While the data dictionary contains all of a REDCap project's fields, it also creates higher-level instruments in which data will be collected and organized....
+
+***
 
 --
 
@@ -394,11 +400,9 @@ The second term is what REDCap refers to as instruments. A REDCap dictionary cre
 
 ???
 
-In other words, instruments are groups of variables housed in a form -- for example, in this window, you see Demographics, Diagnosis History, Vitals, and Lab Results, each of which contains a collection of variables with a common theme.
+In other words, instruments are groups of variables housed in a form -- for example, in this window, you see Demographics, Diagnosis History, Vitals, and Lab Results.
 
-It's not a perfect analogy, but I like to think of instruments as similar to SQL tables, in that they each contain a number of columns grouped with a common purpose.
-
-As we'll see here in a bit, there are at least two ways I can interact with REDCap: via this web portal, or via the REDCap API. I've seen a ton of benefit from incorporating the latter approach into my workflow.
+So -- as we'll see in a bit, there are at least two ways I can interact with REDCap: via this web portal, or via the REDCap API. I'm going to tell you a bit about the latter. 
 
 ---
 
@@ -409,7 +413,7 @@ class: center, middle
 
 ???
 
-One of the main reasons I chose this approach was that I could keep all of my work in R. I didn't need to do as much switching between the REDCap online interface, because everything can be contained in R scripts -- from pulling the SQL data to cleaning and pushing data to REDCap.
+One of the main reasons I chose working with the API was that I could keep all of my work in R. I didn't need to do as much switching between the REDCap online interface and other applications, because everything can be contained in scripts -- from pulling and cleaning source data to defining database parameters and pushing data to REDCap.
 
 And while there are some incredible packages out there to deal with APIs in R -- httr, curl, and others -- REDCapR was an easy, out-of-the-box solution to linking R and REDCap via the API.
 
@@ -434,6 +438,10 @@ class: split-two
 </ol>.
 ]
 
+???
+
+In using R and the REDCap API, my workflow is generally this: ....
+
 --
 
 .pull-right[
@@ -447,11 +455,8 @@ class: split-two
 
 ???
 
-In using R and the REDCap API, my workflow is generally this:
-
   - Pull data from a SQL backend (often integrating other sources, as well)
     - This isn't terribly relevant here, but many of you are probably using these same backend sources, so it's more to give context to workflows that may already exist for you
-    - I usually use packages like DBI, dbmi, and dbplyr here, but I could give an entire separate talk on those
 
 ---
 
@@ -519,7 +524,7 @@ class: split-two
 
 ???
 
-  - Push the data to REDCap using REDCapR, the R package I mentioned earlier
+  - Push the data to REDCap using REDCapR, the R package that helps me use the REDCap API
 
 ---
 
@@ -555,7 +560,7 @@ class: split-two
 
   - And then allow the PI to manually-abstract whatever data needs to be added via the REDCap online interface
 
-... but what I'm really going to focus on today is ...
+... but what I'm really going to focus on today is this third step ...
 
 ---
 
@@ -588,7 +593,7 @@ class: split-two
 
 ???
 
-... using the REDCapR package to ease your interactions with the REDCap API via R. This mostly entails this "push" step, but the "abstract" step will sneak in here a bit.
+... using the REDCapR package to ease your interactions with the REDCap API via R. 
 
 ---
 
@@ -618,9 +623,7 @@ Store your token in secure spot accessible by .code[R] (e.g. using .code[keyring
 
 ???
 
-I won't go through this in too much detail, since the purpose of this presentation is more to make you aware of these features, but I'll mention the steps briefly.
-
-Whether you're using a new or existing REDCap database, you'll need to request an API token, which usually doesn't take more than a day to be administered.
+I won't go through this in too much detail, but whether you're using a new or existing REDCap database, you'll need to request an API token. This is usually a quick process but has to be done for each database.
 
 ---
 
@@ -660,7 +663,7 @@ token <- "9A81268476645C4E5F03428B8AC3AA7B"  # not real; store elsewhere!
 
 ???
 
-So - maybe the most useful thing that anyone can do, even if you're not going to program an entire REDCap database in R, is to pull data using the REDCapR package.
+Even if you never use the REDCap API for anything else, it's worth getting an API token to be able to pull REDCap data using the REDCapR package.
 
 First, assign your uri (which should be the same across Cornell REDCap repos) and token. And again, I usually store my token in a secure spot, but I'm showing it here for illustration.
 
@@ -717,7 +720,7 @@ dictionary <- metadata$data
 
 ???
 
-Metadata, which includes your data dictionary, is also something useful you can pull from REDCap via the API. Just use the redcap_metadata_read function, from which you'll again subset the data element to get the dictionary. The dictionary is pulled as a dataframe that contains the field names, their types, and other useful info.
+Metadata, which includes your data dictionary, is also something useful you can pull from REDCap. Just use the redcap_metadata_read function, from which you'll again subset the data element to get the dictionary. The dictionary is pulled as a dataframe that contains the field names, their types, and other useful info.
 
 ---
 
@@ -729,9 +732,9 @@ Pushing things to .cardinal[REDCap]: your .bold[dictionary]
 
 ???
 
-Pushing data to REDCap via the API requires a little bit of learning, both about REDCap formats and using an API, neither of which I was familiar with. However, if this sounds like something that could be useful in your work, it could be worthwhile.
+Pushing data to REDCap via the API requires a little bit of learning, both about REDCap formats and using an API, neither of which I was familiar with. However, if this sounds like something that could be useful in your work, it could be worthwhile to dig into it.
 
-First, you'll need to define your data dictionary. As I mentioned, REDCap won't accept data without a dictionary in place first, which serves as a receiving template for your incoming data. You can design the dictionary on the online REDCap interface or programmatically in your R pipeline. I won't cover how to do so here, but if you'll be making lots of iterative changes or defining hundreds of variables, it might be worth doing programmatically.
+First, you'll need to define your data dictionary. REDCap won't accept data without a dictionary in place first, since it serves as a template for your incoming data. You can design the dictionary on the online REDCap interface or programmatically in your R pipeline. I won't cover how to do so here, but if you'll be making lots of iterative changes or defining hundreds of variables, it might be worth doing programmatically.
 
 --
 
@@ -746,7 +749,7 @@ First, you'll need to define your data dictionary. As I mentioned, REDCap won't 
 
 ???
 
-You can push your created dictionary via the API using the redcap_metadata_write function. Your dictionary needs to be a specifically-formatted dataframe. The programmatic dictionary format is relatively simple but a bit too in-the-weeds for this presentation, so I'm happy to field any questions after the presentation or later on if you're interested.
+You can push your created dictionary via the API using the redcap_metadata_write function. Your dictionary needs to be a specifically-formatted dataframe. I won't go over the format here, but I'm happy to field any questions after the presentation or later on.
 
 ---
 
@@ -773,7 +776,7 @@ Once you have a correctly-formatted dictionary established in REDCap, you can pu
 
 ???
 
-redcap_write function. I spend a lot of my time querying and cleaning data from SQL backends, and this function is incredibly useful to push data directly to REDCap repositories.
+redcap_write function. I spend a lot of my time querying and cleaning data from SQL backends, and this function is really useful to push that cleaned data directly to REDCap repositories.
 
 As with dictionaries, these dataframes need to be formatted specifically, especially if you're working in a REDCap project with longitudinal data. 
 
@@ -789,7 +792,7 @@ Updating existing data on .cardinal[REDCap]
 
 ???
 
-A little more advanced is actually updating existing data on a REDCap repository. Let's say you're just pushing SQL data at this point -- no manual abstraction has occurred.  However, you realize the SQL data needs a few edits.
+A little more advanced is actually updating existing data on a REDCap repository. Let's say you're just pushing SQL data at this point -- no manual abstraction has occurred.  However, you realize the SQL data has been refreshed and needs to be updated.
 
 There are several ways to accomplish this. One way I've done it is:
 
@@ -829,7 +832,7 @@ new_data <- old_data %>%
 
 ```
 ???
-  - Then, push the edited data back to your REDCap. If you've added new columns, you may need to push a new dictionary before you push new data. With new rows and modifications to existing columns, you don't need to push a new dictionary.
+  - Then, push the edited data back to your REDCap. If you've added new columns, you'll likely need to push a new dictionary before you push new data. With new rows and modifications to existing columns, you usually don't need to push a new dictionary.
 
 ---
 
@@ -852,14 +855,16 @@ formData <- list("token" = token,
                   content = 'project',
                   format = 'csv',
                   returnFormat = 'json')
+
 response <- `httr::POST`(url, body = formData, encode = "form")
+
 result <- httr::content(response)
 
 ```
 
 ???
 
-This code is shown as an example, but it pulls project attributes from REDCap, which is useful for seeing whether a project is longitudinal, when it was last updated, and so on. You can also edit these attributes via the API.
+This code is just shown as an example, but it pulls project attributes from REDCap, which is useful for seeing whether a project is longitudinal, when it was last updated, etc. You can also edit these attributes via the API.
 
 --
 
@@ -867,56 +872,57 @@ This code is shown as an example, but it pulls project attributes from REDCap, w
 
 ???
 
-REDCap has an API playground that will walk you through different API functions and the R code needed to accomplish them. R packages httr and curl are most commonly used to deal with APIs.
+REDCap also has an API playground that will walk you through different API functions and the R code needed to accomplish them. R packages httr and curl are most commonly used here.
 
 ---
 
 # Use-cases
 <br>
 ???
-So with all of this in mind, what are some uses cases here?
+So with all of this in mind, I want to summarize a few use-cases for the functions I've mentioned.
 --
 
 ### Mix programmatic and .cardinal[abstracted] data
 ???
-The first is what I've been primarily concerned with. A PI needs to combine data from a backend server with data that can only be manually-abstracted. Instead of playing the game where we send each other a million CSV files, this has increased reproducbility a hundredfold for those projects.
+The first is what I've been primarily concerned with. A PI needs to combine data from a backend server with data that can only be manually-abstracted. Instead of playing the game where we send each other a million CSV files, using R and the API increases reproducbility and reduces stress.
 --
 
 ### Long-term .forest[data sharing] with a team
 ???
-Perhaps a simpler use-case is long-term data sharing with a team of researchers. Especially during COVID, cohorts are being created and modified weekly; if these data are stored and updated in REDCap via a reproducible pipeline, it'll reduce the chance of merge errors -- and you'll have fewer dated (or indistinguishable) CSV files in your data folder.
+A second, simpler use-case is just long-term data sharing with a team of researchers. Especially during COVID, cohorts are being created and modified weekly; if these data are stored and updated in REDCap with a reproducible pipeline, it'll reduce the chance of merge errors -- and you'll have fewer CSV files floating around in your data folder.
 --
 
 ### If nothing else: .golden[API] convenience functions!
 ???
-And, if nothing else - use the API in your pipelines to pull and catalog data from your existing REDCap repositories! One neat trick is to designate which columns are PHI, then easily pull a deidentified dataset if needed.
+And, if nothing else - you can use the API in your pipelines to pull and catalog data from your existing REDCap repositories! One neat trick is to designate which columns are PHI, then easily pull a deidentified dataset if needed.
 
 ---
 
 # Limitations `r emo::ji("sad_but_relieved_face")`
 <br>
 ???
-As I've mentioned, you have to take a lot of caution in using this approach. As such, there are some limitations here.
+As I've mentioned, you have to take a lot of caution in using this approach. 
 --
 
 ### Easy to .golden[mess things up]
 ???
-First and most importantly, it's really easy to overwrite your REDCap, whether parts of it or the whole thing. I've started using cron to pull automatic data backups, and I've created functions to automatically save a backup anytime I update the REDCap, but it's still terrifing how easy it is to push a mistake and wipe your data.
+First and most importantly, it's really easy to overwrite your REDCap, whether you just mess up parts of it or the whole thing. I've started using cron, which is Linux and Mac software, to pull automatic data backups -- REDCap has some backup functionality, but most have to be done piecemeal. 
 --
 
 ### Pushed vs. .forest[abstracted] data
 ???
-Secondly -- this is a pretty important note -- once someone starts manually abstracting into the REDCap frontend, you’re stuck with the source data you've pushed from the backend. In my experience, there was just no simple way to, let's say, refresh your SQL source data after manual abstractions have occurred, since there aren't advanced difftools and mergetools that would allow you to distinguish which edits came from where. Thus, if you pushed new SQL data from the backend, it would erase all frontend manual edits.
+Secondly -- this is a pretty important note -- once someone starts manually abstracting into the REDCap frontend, you’re stuck with the source data you've already pushed from the backend. In my experience, there's no simple way to, let's say, refresh your SQL source data after manual abstractions have occurred, since there isn't an easy way to distinguish which edits came from where. Essentially, if you pushed new SQL data from the backend, it would erase all frontend manual edits without some complex merge functions.
+
 --
 
 ### Particular .navy[object formatting] for RC API
 ???
-The formatting of data and metadata uploaded via REDCap's API can be somewhat tricky. The peculiarities seem trivial until you need to produce pipelines for hundreds of variables, so I just have to write, commment, and debug API code carefully.
+The formatting of data and metadata uploaded via REDCap's API can be somewhat tricky. The peculiarities seem trivial until you need to produce pipelines for hundreds of variables, so I just have to write, commment, and debug API code pretty carefully.
 --
 
 ### .cardinal[REDCap] dev vs. prod status
 ???
-Lastly, REDCap distinguishes between projects in development vs. production status, with the main difference being that production status makes a project harder to edit. Some REDCapR functions are limited to development projects due to their destructive nature, such as changing the dictionary. However, if proper caution is taken, I think the benefits outweigh the risks.
+Lastly, REDCap distinguishes between projects in development vs. in production, with the main difference being that production status makes a project harder to edit. Some REDCapR functions are limited to development projects, such as changing the dictionary. However, if proper caution is taken, my opinion is that the benefits of staying in development mode outweigh the risks, with little loss of functionality.
 
 ---
 
@@ -933,46 +939,46 @@ As I've mentioned before, use REDCap user rights to your advantage! I change the
 
 ### Regular (automated!) **backups** `r emo::ji("arrows_counterclockwise")`
 ???
-Another thing I've found is that regular backups are GREAT, even if just for peace of mind. As I mentioned, I use cron on my MacBook to automatically run an R script that saves a backup of my REDCap repositories once a week. The repositories I currently work with are pretty small, but if you're looking at millions of rows, REDCap probably isn't the most efficient solution for you anyway.
+As I've mentioned, too, regular backups are GREAT, even if just for peace of mind. The repositories I currently work with are pretty small, but if this seems size-prohibitive, you may want to consider using another solution like relational databases to store your data from the get-go.
 --
 
 ### **Test**/**sandbox** REDCap repositories `r emo::ji("construction_worker_man")`
 ???
-Another in the peace-of-mind category is a test REDCap repository. Before I change the dictionary or push new data to a PI-facing REDCap, I'll copy the production REDCap to a test REDCap and implement my changes there. This is a good thing, because usually my changes somehow break the database. If you have an exising REDCap project, requesting another database for test purposes is easy and very highly recommended!
+Another in the peace-of-mind category is a test REDCap repository. Before I change the dictionary or push new data to a PI-facing REDCap, I'll copy the production REDCap to a test REDCap and implement my changes there. It's super easy to request a new REDCap database for testing.
 --
 
 ### Personal **helper** functions `r emo::ji("toolbox")`
 ???
-Lastly, I know I'm speaking to the computing club when I say this -- create helper functions on top of packages like REDCapR! Something I've learned in every aspect of my programming, not just dealing with APIs, is that custom functions allow me to do less debugging and consider higher-level aspects of my projects and analyses. Time spent writing these functions pays off several fold. 
-
----
-???
-
-[some sort of slide that brings together the ideas of reproducibility and modifiability]
-
-e.g. all of this has married the two ideas of repro and mod
-
-I hope you've seen that mod from PI end of REDCap is useful, but using that as an excuse to abandon reproducibility isn't necessary
+Lastly, and I know I'm speaking to the computing club when I say this -- create helper functions on top of packages like REDCapR! Time spent writing these functions definitely pays off. 
 
 ---
 class: center
 
-.cardinal[**tl;dr**]
-<br><br><br>
+### .cardinal[**tl;dr**]
+<br>
 # MODIFIABILITY CAN BE USEFUL!
+
+???
+
+So -- I hope I've been able to show you that modifiability using REDCap as one tool can actually be pretty useful in working with clinical data, and that you don't have to abandon reproducibility to do so if you use R.
+
+More than that, I hope I've convinced you, even in a tiny way, that modifiability can be useful to scientific and clinical research ...
 
 --
 
-### *. . . in some circumstances*
+### *. . . in many cases*
+
+???
+
+Even with a few....
 
 --
 
 ### *. . . with proper precautions*
 
-
 ???
 
-Summary slide
+Caveats.
 
 ---
 
@@ -981,108 +987,7 @@ class: center, middle
 # `r emo::ji("wave")`
 # questions?
 
----
-
 ???
 
-DRAFT
+Thanks for listening. Does anyone have any comments or questions?
 
-About REDCap API, REDCapR, and other solutions
-
-  - Allows backend R pipeline feeding frontend REDCap (manually-abstractable)
-  - (Also reproducible SQL pipeline from SQL to R (more on that in another presentation, maybe!))
-  - Pros of REDCap:
-    - If data simply cannot be programmatically created (complex, unwieldy, etc.) - individuals may choose to manually abstract
-    - Easy-to-use, already-available platform that many PIs are familiar with (vs. SQL)
-  - Cons of REDCap, esp. with using API:
-    - For safety, need to ensure robust systems for data backup (not default/built in, but not terribly difficult)
-
----
-
-???
-
-DRAFT - probably near end
-
-(My) best practices
-
-  - Test REDCap repositories (can set up via request to REDCap Admin)
-  - Automatic backups using cron
-  - Helper functions
-    - Metadata writing
-    - Safe backup and export  
-       - R: functions 
-       - REDCap: limiting access (mine or PI's) to read-only
-
-
-
-
-
-
-
-
-
-
-
-
-
-???
-
-Outline:
-  - Scenarios where modifiability can be **carefully** explored
-  - Scenarios where modifiability is NOT okay (from irresponsible to malicious/misleading)
-  - One solution: REDCapR API
-    - Allows backend R pipeline feeding frontend REDCap (manually-abstractable)
-    - (Also reproducible SQL pipeline from SQL to R (more on that in another presentation, maybe!))
-    - Pros:
-      - If data simply cannot be programmatically created (complex, unwieldy, etc.) - individuals may choose to manually abstract
-      - Easy-to-use, already-available platform that many PIs are familiar with (vs. SQL)
-    - Cons:
-      - For safety, need to ensure robust systems for data backup (not default/built in, but not terribly difficult)
-  - Things I've incorporated on top of REDCap API
-    - Test REDCap repositories (can set up via request to REDCap Admin)
-    - Automatic backups using cron
-    - Helper functions
-      - Metadata writing
-      - Safe backup and export  
-         - R: functions 
-         - REDCap: limiting access (mine or PI's) to read-only
-         
----
-???
-Other topics
-  - REDCap's API Playground (screenshot of window) - gives R code to interact with API
-
----
-
-class: center
-
-.pull-left[
-  ## Reproducible:
-  
-  .leftalign[
-  
-- Bullet 1 about reproducibility
-
-- Another thing about reproducibility `r emo::ji("cowboy")`
-
-- Ok, **one** last thing!
-    
-  ]
-  
-]
-
---
-
-.pull-right[
-  ## Modifiable:
-  
-  .leftalign[
-  
-- First things first about modifying data
-
-- It's not good `r emo::ji("cry")`
-
-- But sometimes it's necessary!
-
-  ]
-]
