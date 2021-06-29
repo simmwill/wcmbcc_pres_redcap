@@ -987,3 +987,20 @@ class: center, middle
 
 So -- with that, thank you so much for listening. Does anyone have any comments or questions?
 
+---
+
+# Resources
+
+### .code[R] packages:
+
+  - [`REDCapR:` R utilities for interacting with REDCap](https://ouhscbbmc.github.io/REDCapR/)
+  - [`redcapAPI:` R interface to REDCap](https://github.com/nutterb/redcapAPI)
+  - [`httr:` a friendly http package for R](https://httr.r-lib.org/)
+  - [`curl:` a modern and flexible web client for R](https://jeroen.cran.dev/curl/)
+
+<br>
+
+### Other resources:
+ - [REDCap: Development vs. Production](https://guides.temple.edu/c.php?g=936400&p=6879981)
+
+
